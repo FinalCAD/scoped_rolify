@@ -26,6 +26,8 @@ Or install it yourself as:
 
 ## Usage
 
+Method #add_role
+
 You can not add right without instance of resource
 
     user = User.find(1)
@@ -35,6 +37,17 @@ You can not add right without instance of resource
 Only this case it's possible
 
     user.add_role :moderator, Forum.first #
+
+Method #with_role
+
+You can not call method without instance of resource
+
+    User.with_role :admin # Thrown MissingResourceError
+    User.with_role :moderator, Forum # Thrown InstanceResourceError
+
+Only this case it's possible
+
+    User.with_role :moderator, Forum.first #
 
 ## Contributing
 
