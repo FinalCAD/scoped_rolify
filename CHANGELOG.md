@@ -1,3 +1,3 @@
 ### VERSION 0.0.1
 
-* Skeleton
+* Resctricted add_role method

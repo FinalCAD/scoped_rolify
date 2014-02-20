@@ -8,7 +8,7 @@
 
 [![Coverage Status](https://coveralls.io/repos/joel/scopable/badge.png)](https://coveralls.io/r/joel/scopable)
 
-TODO: Write a gem description
+This is a monkey patch of rolify for specifics purposes. We want only have users scoped on specific instance of resource. We are no really interesting by hierarchy.
 
 ## Installation
 
@@ -26,7 +26,15 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+You can not add right without instance of resource
+
+  user = User.find(1)
+  user.add_role :admin # Thrown MissingResourceError
+  user.add_role :moderator, Forum # Thrown InstanceResourceError
+
+Only this case it's possible
+
+  user.add_role :moderator, Forum.first #
 
 ## Contributing
 
