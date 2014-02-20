@@ -28,13 +28,13 @@ Or install it yourself as:
 
 You can not add right without instance of resource
 
-  user = User.find(1)
-  user.add_role :admin # Thrown MissingResourceError
-  user.add_role :moderator, Forum # Thrown InstanceResourceError
+    user = User.find(1)
+    user.add_role :admin # Thrown MissingResourceError
+    user.add_role :moderator, Forum # Thrown InstanceResourceError
 
 Only this case it's possible
 
-  user.add_role :moderator, Forum.first #
+    user.add_role :moderator, Forum.first #
 
 ## Contributing
 
