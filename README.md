@@ -1,5 +1,7 @@
 # Scopable
 
+[![Gem Version](https://badge.fury.io/rb/scopable.png)](http://badge.fury.io/rb/scopable)
+
 [![Code Climate](https://codeclimate.com/github/joel/scopable.png)](https://codeclimate.com/github/joel/scopable)
 
 [![Dependency Status](https://gemnasium.com/joel/scopable.png)](https://gemnasium.com/joel/scopable)
@@ -26,28 +28,28 @@ Or install it yourself as:
 
 ## Usage
 
-Method #add_role
+Method #scope_role map #add_role
 
 You can not add right without instance of resource
 
     user = User.find(1)
-    user.add_role :admin # Thrown MissingResourceError
-    user.add_role :moderator, Forum # Thrown InstanceResourceError
+    user.scope_role :admin # Thrown MissingResourceError
+    user.scope_role :moderator, Forum # Thrown InstanceResourceError
 
 Only this case it's possible
 
-    user.add_role :moderator, Forum.first #
+    user.scope_role :moderator, Forum.first #
 
-Method #with_role
+Method with_scoped_role map #with_role
 
 You can not call method without instance of resource
 
-    User.with_role :admin # Thrown MissingResourceError
-    User.with_role :moderator, Forum # Thrown InstanceResourceError
+    User.with_scoped_role :admin # Thrown MissingResourceError
+    User.with_scoped_role :moderator, Forum # Thrown InstanceResourceError
 
 Only this case it's possible
 
-    User.with_role :moderator, Forum.first #
+    User.with_scoped_role :moderator, Forum.first #
 
 ## Contributing
 
