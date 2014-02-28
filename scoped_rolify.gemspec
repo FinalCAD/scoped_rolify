@@ -1,15 +1,15 @@
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'scopable/version'
+require 'scoped_rolify/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'scopable'
+  spec.name          = 'scoped_rolify'
   spec.version       = ScopedRolify::VERSION
   spec.authors       = ['Joel AZEMAR']
   spec.email         = ['joel.azemar@gmail.com']
   spec.summary       = %q{This is a monkey patch of rolify}
   spec.description   = %q{This is a monkey patch of rolify}
-  spec.homepage      = 'https://github.com/joel/scopable'
+  spec.homepage      = 'https://github.com/joel/scoped_rolify'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)

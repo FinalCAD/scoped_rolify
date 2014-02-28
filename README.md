@@ -1,14 +1,14 @@
 # ScopedRolify
 
-[![Gem Version](https://badge.fury.io/rb/scopable.png)](http://badge.fury.io/rb/scopable)
+[![Gem Version](https://badge.fury.io/rb/scoped_rolify.png)](http://badge.fury.io/rb/scoped_rolify)
 
-[![Code Climate](https://codeclimate.com/github/joel/scopable.png)](https://codeclimate.com/github/joel/scopable)
+[![Code Climate](https://codeclimate.com/github/joel/scoped_rolify.png)](https://codeclimate.com/github/joel/scoped_rolify)
 
-[![Dependency Status](https://gemnasium.com/joel/scopable.png)](https://gemnasium.com/joel/scopable)
+[![Dependency Status](https://gemnasium.com/joel/scoped_rolify.png)](https://gemnasium.com/joel/scoped_rolify)
 
-[![Build Status](https://travis-ci.org/joel/scopable.png?branch=master)](https://travis-ci.org/joel/scopable) (Travis CI)
+[![Build Status](https://travis-ci.org/joel/scoped_rolify.png?branch=master)](https://travis-ci.org/joel/scoped_rolify) (Travis CI)
 
-[![Coverage Status](https://coveralls.io/repos/joel/scopable/badge.png)](https://coveralls.io/r/joel/scopable)
+[![Coverage Status](https://coveralls.io/repos/joel/scoped_rolify/badge.png)](https://coveralls.io/r/joel/scoped_rolify)
 
 This is a monkey patch of rolify for specifics purposes. We want only have users scoped on specific instance of resource. We are no really interesting by hierarchy.
 
@@ -16,7 +16,7 @@ This is a monkey patch of rolify for specifics purposes. We want only have users
 
 Add this line to your application's Gemfile:
 
-    gem 'scopable'
+    gem 'scoped_rolify'
 
 And then execute:
 
@@ -24,7 +24,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install scopable
+    $ gem install scoped_rolify
 
 ## Usage
 
@@ -53,7 +53,7 @@ Only this case it's possible
 
 ## Contributing
 
-1. Fork it ( http://github.com/<my-github-username>/scopable/fork )
+1. Fork it ( http://github.com/<my-github-username>/scoped_rolify/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

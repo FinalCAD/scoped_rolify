@@ -1,8 +1,8 @@
 require 'rolify'
 
-require 'scopable/version'
-require 'scopable/role'
-require 'scopable/finders'
+require 'scoped_rolify/version'
+require 'scoped_rolify/role'
+require 'scoped_rolify/finders'
 
 class MissingResourceError  < StandardError; end
 class InstanceResourceError < StandardError; end
