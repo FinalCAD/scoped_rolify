@@ -1,6 +1,7 @@
 # Users
 User.destroy_all
 User.create login: 'admin'
+User.create login: 'moderator'
 
 # Roles
 Role.destroy_all

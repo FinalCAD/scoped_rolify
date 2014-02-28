@@ -40,7 +40,9 @@ Only this case it's possible
 
     user.add_scope_role :moderator, Forum.first #
 
-Method with_scoped_role map #with_role
+Method with_scoped_role and method #with_any_scoped_role
+
+Theu methods return users for asked roles
 
 You can not call method without instance of resource
 
@@ -50,6 +52,8 @@ You can not call method without instance of resource
 Only this case it's possible
 
     User.with_scoped_role :moderator, Forum.first #
+
+Method with_any_scoped_role return an ActiveRecord::Relation of all users with all roles asked for one resource
 
 ## Contributing
 
