@@ -5,11 +5,11 @@ describe Rolify::Role do
 
   subject { User.first }
 
-  it { expect { subject.scope_role(:admin, Forum) }.to raise_error InstanceResourceError }
-  it { expect { subject.scope_role(:admin, instance) }.to_not raise_error }
+  it { expect { subject.add_scope_role(:admin, Forum) }.to raise_error InstanceResourceError }
+  it { expect { subject.add_scope_role(:admin, instance) }.to_not raise_error }
 
   context 'regular way' do
-    before { subject.scope_role(:admin, instance) }
+    before { subject.add_scope_role(:admin, instance) }
     it { should have_role :admin, instance }
   end
 

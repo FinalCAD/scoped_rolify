@@ -28,17 +28,17 @@ Or install it yourself as:
 
 ## Usage
 
-Method #scope_role map #add_role
+Method #add_scope_role map #add_role
 
 You can not add right without instance of resource
 
     user = User.find(1)
-    user.scope_role :admin # Thrown MissingResourceError
-    user.scope_role :moderator, Forum # Thrown InstanceResourceError
+    user.add_scope_role :admin # Thrown MissingResourceError
+    user.add_scope_role :moderator, Forum # Thrown InstanceResourceError
 
 Only this case it's possible
 
-    user.scope_role :moderator, Forum.first #
+    user.add_scope_role :moderator, Forum.first #
 
 Method with_scoped_role map #with_role
 
