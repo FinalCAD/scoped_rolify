@@ -4,7 +4,7 @@ require 'scopable/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'scopable'
-  spec.version       = Scopable::VERSION
+  spec.version       = ScopedRolify::VERSION
   spec.authors       = ['Joel AZEMAR']
   spec.email         = ['joel.azemar@gmail.com']
   spec.summary       = %q{This is a monkey patch of rolify}

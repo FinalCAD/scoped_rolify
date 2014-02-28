@@ -7,6 +7,6 @@ require 'scopable/finders'
 class MissingResourceError  < StandardError; end
 class InstanceResourceError < StandardError; end
 
-module Scopable
+module ScopedRolify
   # Your code goes here...
 end

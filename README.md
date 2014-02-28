@@ -1,4 +1,4 @@
-# Scopable
+# ScopedRolify
 
 [![Gem Version](https://badge.fury.io/rb/scopable.png)](http://badge.fury.io/rb/scopable)
 
