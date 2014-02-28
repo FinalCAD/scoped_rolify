@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Joel AZEMAR']
   spec.email         = ['joel.azemar@gmail.com']
   spec.summary       = %q{This is a monkey patch of rolify}
-  spec.description   = %q{This is a monkey patch of rolify}
+  spec.description   = %q{This is a monkey patch of rolify, and add new methods}
   spec.homepage      = 'https://github.com/joel/scoped_rolify'
   spec.license       = 'MIT'
 

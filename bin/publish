@@ -5,7 +5,7 @@
 class Publish
 
   def start version
-    system "bundle && bundle exec spec"
+    system "bundle && bundle exec rspec"
     system "gem build scoped_rolify.gemspec"
     system "git tag -a v#{version} -m 'version #{version}'"
     system "git push --tags"
