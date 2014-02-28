@@ -6,10 +6,10 @@ class Publish
 
   def start version
     system "bundle && bundle exec spec"
-    system "gem build scopable.gemspec"
+    system "gem build scoped_rolify.gemspec"
     system "git tag -a v#{version} -m 'version #{version}'"
     system "git push --tags"
-    system "gem push scopable-#{version}.gem"
+    system "gem push scoped_rolify-#{version}.gem"
     system "git push origin master"
   end
 

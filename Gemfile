@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in scopable.gemspec
+# Specify your gem's dependencies in scoped_rolify.gemspec
 gemspec
 
 ENV['ADAPTER'] ||= 'active_record'

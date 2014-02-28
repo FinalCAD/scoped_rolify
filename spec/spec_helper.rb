@@ -1,7 +1,7 @@
 require 'bundler/setup'
 
 require 'rolify'
-require 'scopable'
+require 'scoped_rolify'
 require 'rails'
 
 require 'coveralls'
