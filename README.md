@@ -9,7 +9,7 @@
 [![Build Status](https://travis-ci.org/joel/scoped_rolify.png?branch=master)](https://travis-ci.org/joel/scoped_rolify) (Travis CI)
 
 [![Coverage Status](https://coveralls.io/repos/joel/scoped_rolify/badge.png)](https://coveralls.io/r/joel/scoped_rolify)
-
+                                                                              https://coveralls.io/r/joel/scoped_rolify#
 This is a monkey patch of rolify for specifics purposes. We want only have users scoped on specific instance of resource. We are no really interesting by hierarchy.
 
 ## Installation
@@ -53,7 +53,7 @@ Only this case it's possible
 
     User.with_scoped_role :moderator, Forum.first #
 
-Method with_any_scoped_role return an ActiveRecord::Relation of all users with all roles asked for one resource
+Method ```with_any_scoped_role``` return an ```ActiveRecord::Relation``` of all users with all roles asked for one resource
 
 ## Contributing
 
