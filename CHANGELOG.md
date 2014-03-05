@@ -1,3 +1,7 @@
+### VERSION 0.0.3
+
+* little changes
+
 ### VERSION 0.0.2
 
 * Rename gem from scopable to scoped_rolify
