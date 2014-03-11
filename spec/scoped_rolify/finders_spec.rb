@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Rolify::Finders do
   let(:resource) { Forum.first }
-  let(:admin)     { User.where(login: 'admin').first }
+  let(:admin)    { User.where(login: 'admin').first }
 
   before { admin.add_role(:admin, resource) }
 

@@ -1,3 +1,17 @@
+### VERSION 0.0.4
+
+* bug fix
+  * monkey patch has_role? of Rolify for fixing behavior with heterogeneous role through in sym or string
+
+* enhancements
+  * add_scope_role can be add role on none persisted object
+  * add method remove_scope_role for manage none persisted object
+  * move check into ScopedRolify::Policy
+
+* backwards incompatible changes
+
+* deprecations
+
 ### VERSION 0.0.3
 
 * little changes

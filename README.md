@@ -38,7 +38,10 @@ You can not add right without instance of resource
 
 Only this case it's possible
 
-    user.add_scope_role :moderator, Forum.first #
+    user.add_scope_role :moderator, Forum.first
+    user.add_scope_role :moderator, Forum.new
+
+You can play also with remove_scope_role
 
 Method with_scoped_role and method #with_any_scoped_role
 
@@ -52,6 +55,9 @@ You can not call method without instance of resource
 Only this case it's possible
 
     User.with_scoped_role :moderator, Forum.first #
+
+You can't play with none persisted object
+
 
 Method ```with_any_scoped_role``` return an ```ActiveRecord::Relation``` of all users with all roles asked for one resource
 

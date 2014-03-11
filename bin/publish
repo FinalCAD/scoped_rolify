@@ -5,6 +5,7 @@
 class Publish
 
   def start version
+    system "rvm use `cat .ruby-version`@`cat .ruby-gemset`"
     system "bundle && bundle exec rspec"
     system "gem build scoped_rolify.gemspec"
     system "git tag -a v#{version} -m 'version #{version}'"
