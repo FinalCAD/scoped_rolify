@@ -25,5 +25,16 @@ describe Rolify::Finders do
       expect(subject.with_any_scoped_role([:admin, :moderator], resource).to_a).to eq([admin, moderator])
     end
   end
-end
 
+  context 'with root resource' do
+    let(:user)          { User.first }
+    let(:root_resource) { Category.first }
+
+    before { root_resource.forums << resource }
+
+    context 'add role to user' do
+      before { user.add_scope_role(:admin, resource) }
+      it('should retreive user') { expect(User.with_scoped_role(:admin, resource).to_a).to eq([user]) }
+    end
+  end
+end

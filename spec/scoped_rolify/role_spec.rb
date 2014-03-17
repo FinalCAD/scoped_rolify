@@ -17,6 +17,7 @@ describe Rolify::Role do
 
     it { expect { subject.add_scope_role(:admin, resource) }.to_not raise_error }
     it { should have_role :admin, resource }
+    it { expect(User.with_scoped_role(:admin, resource).to_a).to eq([user]) }
   end
 
   context 'new record way' do
@@ -35,15 +36,19 @@ describe Rolify::Role do
 
   context 'with root resource' do
     let(:root_resource) { Category.first }
+
     before { root_resource.forums << resource }
-    it { expect { subject.add_scope_role(:admin, resource) }.to_not raise_error }
-    it do
-      expect(
-        Role.where(name: :admin, resource_type: 'Forum', resource_id: resource.id,
-          root_resource_type: 'Category', root_resource_id: root_resource.id)
-      ).to be_exists
+
+    context 'add role to user' do
+      before { subject.add_scope_role(:admin, resource) }
+      it('should retreive user') do
+        expect(
+          User.joins(:roles).where(
+            Role.where(name: :admin, resource_type: 'Forum', resource_id: resource.id,
+              root_resource_type: 'Category', root_resource_id: root_resource.id).arel.constraints.first
+          ).to_a
+        ).to eq([subject])
+      end
     end
   end
-
 end
-

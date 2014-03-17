@@ -1,13 +1,6 @@
-# Users
-User.destroy_all
 User.create login: 'admin'
+User.create login: 'super admin'
 User.create login: 'moderator'
-
-# Roles
-Role.destroy_all
-
-# Resources
 Forum.create name: 'forum 1'
-
-# Root Resources
+Forum.create name: 'forum 2'
 Category.create name: 'category 1'

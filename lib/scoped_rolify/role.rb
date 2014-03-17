@@ -24,15 +24,28 @@ module Rolify
     def add_resourced_role(role_name, resource)
       root_resource = resource.respond_to?(:root_resource) ? resource.send(resource.root_resource) : nil
       if self.new_record?
-        self.class.adapter.role_class.new(name: role_name, resource: resource, root_resource: root_resource).tap do |role|
+        role = self.class.adapter.role_class.new(name: role_name, resource: resource, root_resource: root_resource).tap do |role|
           self.roles << role
           if Rolify.dynamic_shortcuts and !self.respond_to?("is_#{role_name}?".to_sym)
             self.class.define_dynamic_method(role_name, resource)
           end
         end
       else
-        add_role_with_root(role_name, resource, root_resource)
+        role = add_role_with_root(role_name, resource, root_resource)
       end
+      add_role_to_resource(role)
+      load_dynamic_shortcuts(role_name, resource)
+      role
+    end
+
+    def load_dynamic_shortcuts(role_name, resource)
+      if Rolify.dynamic_shortcuts and !self.respond_to?("is_#{role_name}?".to_sym)
+        self.class.define_dynamic_method(role_name, resource)
+      end
+    end
+
+    def add_role_to_resource(role)
+      self.roles << role unless self.roles.include?(role)
     end
 
     def add_role_with_root(role_name, resource, root_resource)
@@ -46,7 +59,7 @@ module Rolify
         }
         if root_resource
           conditions.merge!({ root_resource_type: (root_resource.is_a?(Class) ? root_resource.to_s : root_resource.class.name) })
-          unless root_resource.is_a?(Class)
+          unless root_resource.is_a?(Class) # Useless for the moment (Already false)
             conditions.merge!({ root_resource_id: root_resource.id })
           end
         end

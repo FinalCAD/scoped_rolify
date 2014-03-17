@@ -13,6 +13,7 @@ module Rolify
 
     def rolify_constraints role_names, resource
       raise 'You should give somes role' if role_names.nil? or (role_names||[]).empty?
+      root_resource = resource.respond_to?(:root_resource) ? resource.send(resource.root_resource) : nil
       ScopedRolify::Policy.new(self, resource).check_persisted!
       table = Arel::Table.new(:roles)
       [].tap do |_constraints|
@@ -21,6 +22,10 @@ module Rolify
             _constraint << table[:name].eq(name)
             _constraint << table[:resource_type].eq(resource.class.name)
             _constraint << table[:resource_id].eq(resource.id)
+            if root_resource
+              _constraint << table[:root_resource_type].eq(root_resource.class.name)
+              _constraint << table[:root_resource_id].eq(root_resource.id)
+            end
           end.reduce(:and)
         end
       end.reduce(:or)
