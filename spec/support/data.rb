@@ -8,3 +8,6 @@ Role.destroy_all
 
 # Resources
 Forum.create name: 'forum 1'
+
+# Root Resources
+Category.create name: 'category 1'

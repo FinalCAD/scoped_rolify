@@ -8,6 +8,7 @@ ActiveRecord::Schema.define do
   create_table(:roles) do |t|
     t.string :name
     t.references :resource, polymorphic: true
+    t.references :root_resource, polymorphic: true
     t.timestamps
   end
 
@@ -18,6 +19,10 @@ ActiveRecord::Schema.define do
 
   create_table(:forums) do |t|
     t.string :name
+    t.integer :category_id
   end
 
+  create_table(:categories) do |t|
+    t.string :name
+  end
 end

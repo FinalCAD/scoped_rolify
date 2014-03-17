@@ -33,5 +33,17 @@ describe Rolify::Role do
     end
   end
 
+  context 'with root resource' do
+    let(:root_resource) { Category.first }
+    before { root_resource.forums << resource }
+    it { expect { subject.add_scope_role(:admin, resource) }.to_not raise_error }
+    it do
+      expect(
+        Role.where(name: :admin, resource_type: 'Forum', resource_id: resource.id,
+          root_resource_type: 'Category', root_resource_id: root_resource.id)
+      ).to be_exists
+    end
+  end
+
 end
 
