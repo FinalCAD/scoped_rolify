@@ -61,6 +61,42 @@ You can't play with none persisted object
 
 Method ```with_any_scoped_role``` return an ```ActiveRecord::Relation``` of all users with all roles asked for one resource
 
+## Root Resource
+
+In some case you can add right on child resource instead of parent resource, the problem is you haven't access directly to objects throught Parent resource, for exemple
+
+You grant user on specifc Forum, user.add_role(:moderator, Forum.first) the Forum have one Category, if you want get all moderators of this Category you can't. This modification make this possible.
+
+    moderator_john = User.new
+    moderator_jane = User.new
+
+    geek_world = Category.new
+
+    geek_forum = Forum.new
+    nerd_forum = Forum.new
+
+    class Forum < ActiveRecord::Base
+      belongs_to :category
+
+      def root_resource
+        :category
+      end
+    end
+
+    class Category < ActiveRecord::Base
+      has_many :forums
+    end
+
+    geek_world.forums << geek_forum
+    geek_world.forums << nerd_forum
+
+    moderator_john.add_role(:moderator, nerd_forum)
+    moderator_jane.add_role(:moderator, geek_forum)
+
+For grab all moderators of this Category
+
+    User.with_scoped_role :moderator, geek_world, root=true
+
 ## Contributing
 
 1. Fork it ( http://github.com/<my-github-username>/scoped_rolify/fork )

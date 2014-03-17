@@ -8,7 +8,7 @@ module ScopedRolify
 
     def check_persisted!
       check!
-      raise PersitenceError, "You should ask on persisted resource" unless self.resource.persisted?
+      raise PersistenceError, "You should ask on persisted resource" unless self.resource.persisted?
     end
 
   end

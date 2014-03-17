@@ -12,10 +12,11 @@ module Rolify
     end
 
     def has_role?(role_name, resource = nil)
+      root_resource = resource.respond_to?(:root_resource) ? resource.send(resource.root_resource) : nil
       if self.new_record?
-        self.roles.detect { |r| r.name.to_s == role_name.to_s && (r.resource == resource || resource.nil?) }
+        self.roles.detect { |r| r.name.to_s == role_name.to_s && (r.resource == resource || resource.nil?) && (r.root_resource == root_resource || root_resource.nil?) }
       else
-        self.class.adapter.where(self.roles, name: role_name, resource: resource)
+        self.class.adapter.where(self.roles, name: role_name, resource: resource, root_resource: root_resource)
       end.present?
     end
 

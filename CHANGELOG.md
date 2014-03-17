@@ -1,3 +1,14 @@
+### VERSION 0.0.5
+
+* bug fix
+
+* enhancements
+  * add notion of root_resource 
+
+* backwards incompatible changes
+
+* deprecations
+
 ### VERSION 0.0.4
 
 * bug fix
