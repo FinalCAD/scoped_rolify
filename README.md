@@ -97,6 +97,35 @@ For grab all moderators of this Category
 
     User.with_scoped_role :moderator, geek_world, root=true
 
+## Roadmap
+
+Refactoring on root resource API
+
+Change
+
+    User.with_scoped_role :moderator, geek_world, root=true
+
+to
+
+    User.with_scoped_role :moderator, geek_world, scope: :forum
+
+And change
+
+    class Forum < ActiveRecord::Base
+      belongs_to :category
+
+      def root_resource
+        :category
+      end
+    end
+    
+to
+
+    class Forum < ActiveRecord::Base
+      belongs_to :category
+      scoped_roles belongs_to: :category 
+    end
+
 ## Contributing
 
 1. Fork it ( http://github.com/<my-github-username>/scoped_rolify/fork )

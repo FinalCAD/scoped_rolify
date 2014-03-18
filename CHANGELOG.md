@@ -3,11 +3,14 @@
 * bug fix
 
 * enhancements
-  * add notion of root_resource 
+  * add notion of root_resource
 
 * backwards incompatible changes
 
 * deprecations
+
+* roadmap
+  * refactoring on root resource 
 
 ### VERSION 0.0.4
 
