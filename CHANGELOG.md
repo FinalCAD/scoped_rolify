@@ -1,3 +1,17 @@
+### VERSION 0.0.6
+
+* bug fix
+
+* enhancements
+  * remove eager loading for dynamic method
+
+* backwards incompatible changes
+
+* deprecations
+
+* roadmap
+  * refactoring on root resource 
+  
 ### VERSION 0.0.5
 
 * bug fix
