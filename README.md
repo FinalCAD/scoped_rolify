@@ -88,10 +88,10 @@ You grant user on specific ```Forum```, ```user.add_scope_role(:moderator, Forum
     moderator_john = User.new
     moderator_jane = User.new
 
-    geek_world = Category.new
+    hack_category = Category.new
 
-    geek_forum = Forum.new
-    nerd_forum = Forum.new
+    fair_hack_forum = Forum.new
+    blackhat_hack_forum = Forum.new
 
     class Forum < ActiveRecord::Base
       belongs_to :category
@@ -105,15 +105,15 @@ You grant user on specific ```Forum```, ```user.add_scope_role(:moderator, Forum
       has_many :forums
     end
 
-    geek_world.forums << geek_forum
-    geek_world.forums << nerd_forum
+    hack_category.forums << fair_hack_forum
+    hack_category.forums << blackhat_hack_forum
 
-    moderator_john.add_scope_role(:moderator, nerd_forum)
-    moderator_jane.add_scope_role(:moderator, geek_forum)
+    moderator_john.add_scope_role(:moderator, blackhat_hack_forum)
+    moderator_jane.add_scope_role(:moderator, fair_hack_forum)
 
 For get all moderators of this Category
 
-    User.with_scoped_role :moderator, geek_world, scope: :root
+    User.with_scoped_role :moderator, hack_category, scope: :root
 
 ## Bugfix
 
