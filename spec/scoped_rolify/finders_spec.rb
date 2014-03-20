@@ -42,7 +42,7 @@ describe Rolify::Finders do
       end
 
       it('should retreive super_admin') { expect(User.with_scoped_role(:super_admin, resource).to_a).to eq([super_admin]) }
-      it('should retreive all user for Category') { expect(User.with_scoped_role(:super_admin, root_resource, true).to_a).to eq([super_admin, moderator]) }
+      it('should retreive all user for Category') { expect(User.with_scoped_role(:super_admin, root_resource, scope: :root).to_a).to eq([super_admin, moderator]) }
     end
   end
 end

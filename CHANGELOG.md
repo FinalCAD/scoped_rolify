@@ -1,3 +1,21 @@
+### VERSION 0.0.7
+
+* bug fix
+
+* refactoring
+  * Api signature has changed on with_scoped_role method
+
+* enhancements
+
+* backwards incompatible changes
+  * Api signature has changed on with_scoped_role method. Last argument is no longer boolean, is hash of option now.
+
+* deprecations
+
+* roadmap
+  * refactoring on root resource API
+
+
 ### VERSION 0.0.6
 
 * bug fix
@@ -10,8 +28,8 @@
 * deprecations
 
 * roadmap
-  * refactoring on root resource 
-  
+  * refactoring on root resource
+
 ### VERSION 0.0.5
 
 * bug fix
@@ -24,7 +42,7 @@
 * deprecations
 
 * roadmap
-  * refactoring on root resource 
+  * refactoring on root resource
 
 ### VERSION 0.0.4
 

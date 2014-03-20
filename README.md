@@ -9,8 +9,9 @@
 [![Build Status](https://travis-ci.org/joel/scoped_rolify.png?branch=master)](https://travis-ci.org/joel/scoped_rolify) (Travis CI)
 
 [![Coverage Status](https://coveralls.io/repos/joel/scoped_rolify/badge.png)](https://coveralls.io/r/joel/scoped_rolify)
-                                                                              https://coveralls.io/r/joel/scoped_rolify#
-This is a monkey patch of rolify for specifics purposes. We want only have users scoped on specific instance of resource. We are no really interesting by hierarchy.
+
+
+This is a hack of EppO/rolify for specific purpose and for bypassing some limitations. We want only have users scoped on specific instance of resource. We are no really interesting by hierarchy. We want use Rolify for binding some resource through roles, the resources have absolutely need to be existing.
 
 ## Installation
 
@@ -26,46 +27,69 @@ Or install it yourself as:
 
     $ gem install scoped_rolify
 
-## Usage
+## Introduction
+
+We add some methods for mapping orignal Rolify methods
 
 Method #add_scope_role map #add_role
 
-You can not add right without instance of resource
+# Roles
+
+## #add_role method
+
+We have added ```add_scope_role(role_name, resource)``` method for mapped original ```add_role method```.
+
+This method force argument resource to be existing, and add extra feature for ```root resource``` discussed below.
+
+usage:
+
+You can't add right without instance of resource
 
     user = User.find(1)
     user.add_scope_role :admin # Thrown MissingResourceError
     user.add_scope_role :moderator, Forum # Thrown InstanceResourceError
 
-Only this case it's possible
+Only the following ways are possible
 
     user.add_scope_role :moderator, Forum.first
     user.add_scope_role :moderator, Forum.new
 
-You can play also with remove_scope_role
+## #remove_role method
 
-Method with_scoped_role and method #with_any_scoped_role
+This method is mapped by #remove_scope_role
 
-Theu methods return users for asked roles
+# Finders 
+
+## #with_role and #with_any_role methods
+
+Those methods are mapped by #with_scoped_role and method #with_any_scoped_role
+
+An important enhancement here, the new methods return an ```ActiveRecord::Relation``` instead array of result! Is a big feature for us.
+
+### Sample 
+
+The methods return users for asked roles
+
+usage:
 
 You can not call method without instance of resource
 
     User.with_scoped_role :admin # Thrown MissingResourceError
     User.with_scoped_role :moderator, Forum # Thrown InstanceResourceError
 
-Only this case it's possible
+Only the following ways are possible
 
-    User.with_scoped_role :moderator, Forum.first #
+    User.with_scoped_role :moderator, Forum.first
+
+### Important limitation of finders
 
 You can't play with none persisted object
 
-
-Method ```with_any_scoped_role``` return an ```ActiveRecord::Relation``` of all users with all roles asked for one resource
-
 ## Root Resource
 
-In some case you can add right on child resource instead of parent resource, the problem is you haven't access directly to objects throught Parent resource, for exemple
+In some case you can add right on child resource instead of parent resource, the problem is you haven't access directly to objects through Parent resource, for exemple
 
-You grant user on specifc Forum, user.add_role(:moderator, Forum.first) the Forum have one Category, if you want get all moderators of this Category you can't. This modification make this possible.
+You grant user on specific Forum, user.add_scope_role(:moderator, Forum.first) the Forum have one Category, if you want get all moderators of this Category you can't. This modification make this way possible.
 
     moderator_john = User.new
     moderator_jane = User.new
@@ -90,26 +114,24 @@ You grant user on specifc Forum, user.add_role(:moderator, Forum.first) the Foru
     geek_world.forums << geek_forum
     geek_world.forums << nerd_forum
 
-    moderator_john.add_role(:moderator, nerd_forum)
-    moderator_jane.add_role(:moderator, geek_forum)
+    moderator_john.add_scope_role(:moderator, nerd_forum)
+    moderator_jane.add_scope_role(:moderator, geek_forum)
 
-For grab all moderators of this Category
+For get all moderators of this Category
 
-    User.with_scoped_role :moderator, geek_world, root=true
+    User.with_scoped_role :moderator, geek_world, scope: :root
+
+## Bugfix
+
+We have fixed a bug on ```has_role?``` method for object none persisted
 
 ## Roadmap
+
+Possible enhancements
 
 Refactoring on root resource API
 
 Change
-
-    User.with_scoped_role :moderator, geek_world, root=true
-
-to
-
-    User.with_scoped_role :moderator, geek_world, scope: :forum
-
-And change
 
     class Forum < ActiveRecord::Base
       belongs_to :category
@@ -118,13 +140,15 @@ And change
         :category
       end
     end
-    
+
 to
 
     class Forum < ActiveRecord::Base
       belongs_to :category
-      scoped_roles belongs_to: :category 
+      scoped_roles belongs_to: :category
     end
+
+This way seem pretty nice, but need spend more time on it.
 
 ## Contributing
 

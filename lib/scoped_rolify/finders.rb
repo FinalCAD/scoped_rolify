@@ -1,34 +1,39 @@
 module Rolify
   module Finders
 
-    def with_scoped_role role_name, resource, root_only=false
+    def with_scoped_role role_name, resource, options={}
       ScopedRolify::Policy.new(self, resource).check_persisted!
-      self.joins(:roles).where(rolify_constraints(role_name, resource, root_only))
+      self.joins(:roles).where(rolify_constraints(role_name, resource, options))
     end
 
-    def with_any_scoped_role role_names, resource, root_only=false
+    def with_any_scoped_role role_names, resource, options={}
       ScopedRolify::Policy.new(self, resource).check_persisted!
-      self.joins(:roles).where(rolify_constraints(role_names, resource, root_only))
+      self.joins(:roles).where(rolify_constraints(role_names, resource, options))
     end
 
-    def rolify_constraints role_names, resource, root_only=false
-      raise 'You should give somes role' if role_names.nil? or (role_names||[]).empty?
-      
+    def rolify_constraints role_names, resource, options={}
+      raise 'You should give somes role' if role_names.nil? or Array(role_names).empty?
       ScopedRolify::Policy.new(self, resource).check_persisted!
-            
+
+      scope = options.fetch(:scope, :resource)
+      raise 'Only scope :resource or :root are supported' unless %i(resource root).include?(scope)
+
+      field_type, field_id = begin
+        case scope
+        when :resource
+          [ :resource_type, :resource_id]
+        when :root
+          [ :root_resource_type, :root_resource_id]
+        end
+      end
+
       table = Arel::Table.new(:roles)
-
-      [].tap do |_constraints|
+      [].tap do |constraints|
         Array.wrap(role_names).each do |name|
-          _constraints << [].tap do |_constraint|
-            _constraint << table[:name].eq(name)
-            if root_only
-              _constraint << table[:root_resource_type].eq(resource.class.name)
-              _constraint << table[:root_resource_id].eq(resource.id)
-            else
-              _constraint << table[:resource_type].eq(resource.class.name)
-              _constraint << table[:resource_id].eq(resource.id)
-            end
+          constraints << [].tap do |constraint|
+            constraint << table[:name].eq(name)
+            constraint << table[field_type].eq(resource.class.name)
+            constraint << table[field_id].eq(resource.id)
           end.reduce(:and)
         end
       end.reduce(:or)
