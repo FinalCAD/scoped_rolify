@@ -10,6 +10,7 @@
 
 [![Coverage Status](https://coveralls.io/repos/joel/scoped_rolify/badge.png)](https://coveralls.io/r/joel/scoped_rolify)
 
+## Introduction
 
 This is a hack of EppO/rolify for specific purpose and for bypassing some limitations. We want only have users scoped on specific instance of resource. We are no really interesting by hierarchy. We want use Rolify for binding some resource through roles, the resources have absolutely need to be existing.
 
@@ -27,17 +28,12 @@ Or install it yourself as:
 
     $ gem install scoped_rolify
 
-## Introduction
-
-We add some methods for mapping orignal Rolify methods
-
-Method #add_scope_role map #add_role
 
 # Roles
 
 ## #add_role method
 
-We have added ```add_scope_role(role_name, resource)``` method for mapped original ```add_role method```.
+We have added ```add_scope_role(role_name, resource)``` method for mapped original ```add_role``` method.
 
 This method force argument resource to be existing, and add extra feature for ```root resource``` discussed below.
 
@@ -58,21 +54,19 @@ Only the following ways are possible
 
 This method is mapped by #remove_scope_role
 
-# Finders 
+# Finders
 
 ## #with_role and #with_any_role methods
 
-Those methods are mapped by #with_scoped_role and method #with_any_scoped_role
+Those methods are mapped by ```#with_scoped_role``` and method ```#with_any_scoped_role```
 
 An important enhancement here, the new methods return an ```ActiveRecord::Relation``` instead array of result! Is a big feature for us.
 
-### Sample 
+usage:
 
 The methods return users for asked roles
 
-usage:
-
-You can not call method without instance of resource
+You can't call method without instance of resource
 
     User.with_scoped_role :admin # Thrown MissingResourceError
     User.with_scoped_role :moderator, Forum # Thrown InstanceResourceError
@@ -89,7 +83,7 @@ You can't play with none persisted object
 
 In some case you can add right on child resource instead of parent resource, the problem is you haven't access directly to objects through Parent resource, for exemple
 
-You grant user on specific Forum, user.add_scope_role(:moderator, Forum.first) the Forum have one Category, if you want get all moderators of this Category you can't. This modification make this way possible.
+You grant user on specific ```Forum```, ```user.add_scope_role(:moderator, Forum.first)``` the ```Forum``` have one ```Category```, if you want get all moderators of this ```Category``` you can't. This modification make this way possible.
 
     moderator_john = User.new
     moderator_jane = User.new

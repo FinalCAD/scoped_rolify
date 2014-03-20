@@ -21,7 +21,7 @@
 * bug fix
 
 * enhancements
-  * remove eager loading for dynamic method
+  * remove eager loading for dynamic method. Cause performance problem with huge table roles.
 
 * backwards incompatible changes
 
