@@ -1,3 +1,8 @@
+### VERSION 0.0.8
+
+* bug fix
+  * remove monkey patch on has_role?, was fixed on Rolify
+  
 ### VERSION 0.0.7
 
 * bug fix

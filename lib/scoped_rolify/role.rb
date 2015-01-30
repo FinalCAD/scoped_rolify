@@ -11,19 +11,19 @@ module Rolify
       remove_resourced_role(role_name, resource)
     end
 
-    def has_role?(role_name, resource = nil)
-      root_resource = resource.respond_to?(:root_resource) ? resource.send(resource.root_resource) : nil
-      if self.new_record?
-        self.roles.detect { |r| r.name.to_s == role_name.to_s && (r.resource == resource || resource.nil?) && (r.root_resource == root_resource || root_resource.nil?) }
-      else
-        self.class.adapter.where(self.roles, name: role_name, resource: resource, root_resource: root_resource)
-      end.present?
-    end
-
     private
+
+    def remove_resourced_role(role_name, resource)
+      if self.new_record?
+        self.roles = self.roles - [self.roles.detect { |r| r.name.to_s == role_name.to_s && r.resource == resource }]
+      else
+        remove_role(role_name, resource)
+      end
+    end
 
     def add_resourced_role(role_name, resource)
       root_resource = resource.respond_to?(:root_resource) ? resource.send(resource.root_resource) : nil
+
       if self.new_record?
         role = self.class.adapter.role_class.new(name: role_name, resource: resource, root_resource: root_resource).tap do |role|
           self.roles << role
@@ -65,14 +65,6 @@ module Rolify
           end
         end
         self.class.adapter.role_class.where(conditions).first_or_create
-      end
-    end
-
-    def remove_resourced_role(role_name, resource)
-      if self.new_record?
-        self.roles = self.roles - [self.roles.detect { |r| r.name.to_s == role_name.to_s && r.resource == resource }]
-      else
-        remove_role(role_name, resource)
       end
     end
 

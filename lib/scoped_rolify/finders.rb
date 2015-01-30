@@ -11,6 +11,8 @@ module Rolify
       self.joins(:roles).where(rolify_constraints(role_names, resource, options))
     end
 
+    private
+
     def rolify_constraints role_names, resource, options={}
       raise 'You should give somes role' if role_names.nil? or Array(role_names).empty?
       ScopedRolify::Policy.new(self, resource).check_persisted!
@@ -21,9 +23,9 @@ module Rolify
       field_type, field_id = begin
         case scope
         when :resource
-          [ :resource_type, :resource_id]
+          [ :resource_type, :resource_id ]
         when :root
-          [ :root_resource_type, :root_resource_id]
+          [ :root_resource_type, :root_resource_id ]
         end
       end
 
