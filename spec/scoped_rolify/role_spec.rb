@@ -44,9 +44,9 @@ describe Rolify::Role do
         before { subject.add_scope_role(:admin, resource) }
         it('should retreive user') do
           expect(
-            User.joins(:roles).where(
+            User.joins(:roles).merge(
               Role.where(name: :admin, resource_type: 'Forum', resource_id: resource.id,
-                root_resource_type: 'Category', root_resource_id: root_resource.id).arel.constraints.first
+                root_resource_type: 'Category', root_resource_id: root_resource.id)
             ).to_a
           ).to eq([subject])
         end
