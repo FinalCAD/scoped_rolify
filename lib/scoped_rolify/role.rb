@@ -55,11 +55,11 @@ module Rolify
       else
         conditions = {
           name: role_name.to_s,
-          resource_type: resource.class.name,
+          resource_type: resource.class.base_class.name,
           resource_id: resource.id,
         }
         if root_resource
-          conditions.merge!({ root_resource_type: (root_resource.is_a?(Class) ? root_resource.to_s : root_resource.class.name) })
+          conditions.merge!({ root_resource_type: (root_resource.is_a?(Class) ? root_resource.to_s : root_resource.class.base_class.name) })
           unless root_resource.is_a?(Class) # Useless for the moment (Already false)
             conditions.merge!({ root_resource_id: root_resource.id })
           end
