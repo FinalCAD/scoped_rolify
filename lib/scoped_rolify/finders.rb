@@ -34,7 +34,7 @@ module Rolify
         Array.wrap(role_names).each do |name|
           constraints << [].tap do |constraint|
             constraint << table[:name].eq(Arel::Nodes::Quoted.new(name))
-            constraint << table[field_type].eq(Arel::Nodes::Quoted.new(resource.class.name))
+            constraint << table[field_type].eq(Arel::Nodes::Quoted.new(resource.class.base_class.name))
             constraint << table[field_id].eq(Arel::Nodes::Quoted.new(resource.id))
           end.reduce(:and)
         end
