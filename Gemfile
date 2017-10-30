@@ -9,7 +9,7 @@ group :test do
   case ENV['ADAPTER']
   when nil, 'active_record'
     gem 'sqlite3', platform: 'ruby'
-    gem 'activerecord', '>= 5.0.0', require: 'active_record'
+    gem 'activerecord', '>= 3.2.0', require: 'active_record'
   else
     raise "Unknown model adapter: #{ENV['ADAPTER']}"
   end
