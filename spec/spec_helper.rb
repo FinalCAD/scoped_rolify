@@ -3,6 +3,7 @@ require 'bundler/setup'
 require 'rolify'
 require 'scoped_rolify'
 require 'rails'
+require 'pry'
 
 require 'coveralls'
 Coveralls.wear!
