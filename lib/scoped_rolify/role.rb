@@ -1,5 +1,17 @@
 module Rolify
   module Role
+    def add_role(role_name, resource = nil)
+      role = self.class.adapter.find_or_create_by(role_name.to_s,
+                                                  (resource.is_a?(Class) ? resource.to_s : resource.class.base_class.name if resource),
+                                                  (resource.id if resource && !resource.is_a?(Class)))
+
+      if !roles.include?(role)
+        self.class.define_dynamic_method(role_name, resource) if Rolify.dynamic_shortcuts
+        self.class.adapter.add(self, role)
+      end
+      role
+    end
+    alias_method :grant, :add_role
 
     def add_scope_role(role_name, resource)
       ScopedRolify::Policy.new(self, resource).check!
@@ -25,7 +37,7 @@ module Rolify
       root_resource = resource.respond_to?(:root_resource) ? resource.send(resource.root_resource) : nil
 
       if self.new_record?
-        role = self.class.adapter.role_class.new(name: role_name, resource: resource, root_resource: root_resource).tap do |role|
+        role = self.class.adapter.role_class.find_or_initialize_by(name: role_name, resource: resource, root_resource: root_resource).tap do |role|
           self.roles << role
           if Rolify.dynamic_shortcuts and !self.respond_to?("is_#{role_name}?".to_sym)
             self.class.define_dynamic_method(role_name, resource)
